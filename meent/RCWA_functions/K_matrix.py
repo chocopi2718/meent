@@ -1,6 +1,5 @@
-import numpy as np
-from scipy import sparse
-from numpy.linalg import cond
+# import numpy as np
+import jax.numpy as np
 
 
 def K_matrix_cubic_2D(beta_x, beta_y, k0, a_x, a_y, N_p, N_q):

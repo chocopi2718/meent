@@ -1,5 +1,7 @@
-import numpy as np
-from numpy.linalg import inv
+# import numpy as np
+# from numpy.linalg import inv
+import jax.numpy as np
+from jax.numpy.linalg import inv
 
 
 def P_Q_kz(Kx, Ky, e_conv, mu_conv, oneover_E_conv, oneover_E_conv_i, E_i):

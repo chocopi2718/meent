@@ -1,7 +1,8 @@
-import numpy as np
-import cmath
-from numpy.linalg import solve as bslash
-from numpy.linalg import inv, pinv
+# import numpy as np
+# from numpy.linalg import inv, pinv
+
+import jax.numpy as np
+from jax.numpy.linalg import inv, pinv
 # TODO: try pinv
 
 

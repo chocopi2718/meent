@@ -1,5 +1,3 @@
-from meent.convolution_matrix import *
-
 from .RCWA_functions import K_matrix as km
 from .RCWA_functions import PQ_matrices as pq
 from .RCWA_functions import scatter_matrices as sm
@@ -7,6 +5,7 @@ from .RCWA_functions import redheffer_star as rs
 from .RCWA_functions import rcwa_initial_conditions as ic
 from .RCWA_functions import homogeneous_layer as hl
 
+import jax.numpy as np
 
 def scattering_1d_1(k0, n_I, n_II, theta, phi, fourier_indices, period, pol, wl=None):
 

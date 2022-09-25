@@ -1,5 +1,7 @@
-import numpy as np
-from scipy.linalg import block_diag
+# import numpy as np
+import jax.numpy as np
+
+from scipy.linalg import block_diag  # TODO: change
 
 
 def homogeneous_module(Kx, Ky, e_r, m_r=1, perturbation=1E-16, wl=None, comment=None):

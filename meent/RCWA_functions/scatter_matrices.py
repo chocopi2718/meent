@@ -1,7 +1,9 @@
-import numpy as np
-from numpy.linalg import inv, pinv
-# TODO: try pseudo-inverse?
+# import numpy as np
+# from numpy.linalg import inv, pinv
 
+import jax.numpy as np
+from jax.numpy.linalg import inv, pinv
+# TODO: try pseudo-inverse?
 
 def A_B_matrices_half_space(V_layer, Vg):
 
