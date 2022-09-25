@@ -1,5 +1,5 @@
 # import numpy as np
-import jax.numpy as np
+import autograd.numpy as np
 
 
 def delta_vector(P, Q):

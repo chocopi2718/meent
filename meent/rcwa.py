@@ -1,6 +1,6 @@
 import time
 # import numpy as np
-import jax.numpy as np
+import autograd.numpy as np
 
 from meent._base import _BaseRCWA
 from meent.convolution_matrix import to_conv_mat_old, find_n_index

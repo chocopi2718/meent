@@ -1,15 +1,15 @@
 # import numpy as np
 # from numpy.linalg import inv, pinv
 
-import jax.numpy as np
-from jax.numpy.linalg import inv, pinv
+import autograd.numpy as np
+from autograd.numpy.linalg import grad_inv, grad_pinv
 # TODO: try pseudo-inverse?
 
 def A_B_matrices_half_space(V_layer, Vg):
 
     I = np.eye(len(Vg))
-    a = I + inv(Vg) @ V_layer
-    b = I - inv(Vg) @ V_layer
+    a = I + grad_inv(Vg) @ V_layer
+    b = I - grad_inv(Vg) @ V_layer
 
     return a, b
 
@@ -23,8 +23,8 @@ def A_B_matrices(W_layer, Wg, V_layer, Vg):
     :param Vg:
     :return:
     """
-    W_i = inv(W_layer)
-    V_i = inv(V_layer)
+    W_i = grad_inv(W_layer)
+    V_i = grad_inv(V_layer)
 
     a = W_i @ Wg + V_i @ Vg
     b = W_i @ Wg - V_i @ Vg
@@ -47,8 +47,8 @@ def S_layer(A, B, d, k0, modes):
     # sign convention (EMLAB is exp(-1i*k\dot r))
     X = np.diag(np.exp(-np.diag(modes)*d*k0))  # TODO: Check
 
-    A_i = inv(A)
-    term_i = inv(A - X @ B @ A_i @ X @ B)
+    A_i = grad_inv(A)
+    term_i = grad_inv(A - X @ B @ A_i @ X @ B)
 
     S11 = term_i @ (X @ B @ A_i @ X @ A - B)
     S12 = term_i @ X @ (A - B @ A_i @ B)
@@ -62,7 +62,7 @@ def S_layer(A, B, d, k0, modes):
 
 def S_RT(A, B, ref_mode):
 
-    A_i = inv(A)
+    A_i = grad_inv(A)
 
     S11 = -A_i @ B
     S12 = 2 * A_i

@@ -1,8 +1,8 @@
 # import numpy as np
 # from numpy.linalg import inv
-import jax.numpy as np
-from jax.numpy.linalg import inv
-
+import autograd.numpy as np
+# from autograd.numpy.linalg import inv
+from autograd.numpy.linalg import grad_inv
 
 def P_Q_kz(Kx, Ky, e_conv, mu_conv, oneover_E_conv, oneover_E_conv_i, E_i):
     '''
@@ -25,8 +25,8 @@ def P_Q_kz(Kx, Ky, e_conv, mu_conv, oneover_E_conv, oneover_E_conv_i, E_i):
     ])
 
     Q = np.block([
-        [Kx @ inv(mu_conv) @ Ky, -Kx @ inv(mu_conv) @ Kx + e_conv],
-        [-oneover_E_conv_i + Ky @ inv(mu_conv) @ Ky, -Ky @ inv(mu_conv) @ Kx]
+        [Kx @ grad_inv(mu_conv) @ Ky, -Kx @ grad_inv(mu_conv) @ Kx + e_conv],
+        [-oneover_E_conv_i + Ky @ grad_inv(mu_conv) @ Ky, -Ky @ grad_inv(mu_conv) @ Kx]
     ])
 
     return P, Q, Kz

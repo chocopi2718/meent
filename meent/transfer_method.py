@@ -1,4 +1,4 @@
-import jax.numpy as np
+import autograd.numpy as np
 
 from meent.convolution_matrix import *
 

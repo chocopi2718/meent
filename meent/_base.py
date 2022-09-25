@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from .scattering_method import *
 from .transfer_method import *
 
-import jax.numpy as np
+import autograd.numpy as np
 
 
 class Base:

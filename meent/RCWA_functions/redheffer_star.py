@@ -1,8 +1,8 @@
 # import numpy as np
 # from numpy.linalg import inv, pinv
 
-import jax.numpy as np
-from jax.numpy.linalg import inv, pinv
+import autograd.numpy as np
+from autograd.numpy.linalg import grad_inv, grad_pinv
 # TODO: try pinv
 
 
@@ -24,8 +24,8 @@ def RedhefferStar(SA, SB):  # SA and SB are both 2x2 block matrices;
     N = len(SA_11)  # SA_11 should be square so length is fine
 
     I = np.eye(N)
-    D_i = inv(I - SB_11 @ SA_22)
-    F_i = inv(I - SA_22 @ SB_11)
+    D_i = grad_inv(I - SB_11 @ SA_22)
+    F_i = grad_inv(I - SA_22 @ SB_11)
 
     SAB_11 = SA_11 + SA_12 @ D_i @ SB_11 @ SA_21
     SAB_12 = SA_12 @ D_i @ SB_12

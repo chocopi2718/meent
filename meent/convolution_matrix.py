@@ -1,7 +1,7 @@
 import copy
 # import numpy as np
 import scipy.io
-import jax.numpy as np
+import autograd.numpy as np
 
 from scipy.linalg import circulant  # TODO: acceptable?
 

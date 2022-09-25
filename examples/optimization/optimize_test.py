@@ -1,6 +1,8 @@
-from jax import grad
-import numpy as np
-import jax.numpy as jnp
+# import numpy
+import autograd.numpy as np
+import time
+
+from autograd import grad
 
 from meent.rcwa import RCWA
 
@@ -18,33 +20,53 @@ class RCWAOptimizer:
         residue = spectrum_model - spectrum_gt
         loss = np.linalg.norm(residue)
 
-class TT:
-    def __init__(self):
-        pass
-
-
 
 if __name__ == '__main__':
-    grating_type = 0
-    aa = TT()
-    print(1)
-    gt = RCWA(grating_type,wls=np.linspace(0.5, 2.3, 40), fourier_order=1,)
-    # model = LalanneBase(grating_type, wls=np.linspace(0.5, 2.3, 40), fourier_order=1, thickness=[x])
 
+    def loss(thick):
+        grating_type = 0
+        pol = 0
 
-    def loss(x):
-        print(2)
-        model = RCWA(grating_type, wls=np.linspace(0.5, 2.3, 40), fourier_order=1, thickness=[x])
-        print(3)
-        model.solve()
+        n_I = 1
+        n_II = 1
 
-        gap = jnp.linalg.norm(model.spectrum_r - gt.spectrum_r)
+        theta = 20
+        phi = 20
+        psi = 0 if pol else 90
+
+        wls = np.linspace(500, 2300, 1)
+        fourier_order = 10
+
+        # Ground Truth
+        period = np.array([700])
+        thickness = np.array([1120])
+        cell = np.array([[[3.48 ** 2, 3.48 ** 2, 3.48 ** 2, 1, 1, 1, 1, 1, 1, 1]]])
+        ground_truth = RCWA(grating_type=grating_type, pol=pol, n_I=n_I, n_II=n_II, theta=theta, phi=phi, psi=psi,
+                            fourier_order=fourier_order, wls=wls, period=period, patterns=cell, thickness=thickness)
+
+        # Test
+        thickness = np.array([thick])
+
+        test = RCWA(grating_type=grating_type, pol=pol, n_I=n_I, n_II=n_II, theta=theta, phi=phi, psi=psi,
+                    fourier_order=fourier_order, wls=wls, period=period, patterns=cell, thickness=thickness)
+
+        a, b = ground_truth.jax_test()
+        # ground_truth.plot()
+
+        c, d = test.jax_test()
+        # test.plot()
+        gap = np.linalg.norm(test.spectrum_r - ground_truth.spectrum_r)
+        print('gap:', gap.primal)
         return gap
 
+
+
     grad_loss = grad(loss)
-    print(grad_loss(1.0))
+    print('grad:', grad_loss(300.))
+    print('grad:', grad_loss(600.))
+    print('grad:', grad_loss(1110.))
+    print('grad:', grad_loss(1120.))
+    print('grad:', grad_loss(1130.))
 
 
-    gt = RCWA(grating_type)
-    model = RCWA(grating_type)
-    pass
+    print('end')
